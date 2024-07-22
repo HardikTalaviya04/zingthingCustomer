@@ -17,7 +17,7 @@ import {SCREENS} from '../Utils/screenName';
 const ScreenHeight = Dimensions.get('screen').height;
 const ScreenWidth = Dimensions.get('screen').width;
 const OnBordingHeader = ({label, Back = true, isMyJob = false}: any) => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   return (
     <View>
       <StatusBar barStyle={'dark-content'} backgroundColor={COLORS.White} />

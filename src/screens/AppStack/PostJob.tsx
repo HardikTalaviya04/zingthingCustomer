@@ -24,7 +24,7 @@ import DocumentPicker from 'react-native-document-picker';
 import RNFS from 'react-native-fs';
 
 const PostJob = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const pickerRef = useRef();
   const [FinalSubmissionPage, setFinalSubmissionPage] = useState(false);
   const [documentPath, setdocumentPath] = useState('');
