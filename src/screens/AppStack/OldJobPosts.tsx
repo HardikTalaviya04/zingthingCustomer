@@ -36,7 +36,7 @@ export default function OldJobPosts() {
   const ScreenHeight = Dimensions.get('screen').height;
   const ScreenWidth = Dimensions.get('screen').width;
 
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const handlePayment = () => {
     var options = {
