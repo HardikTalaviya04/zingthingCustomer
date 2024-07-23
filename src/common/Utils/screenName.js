@@ -1,11 +1,13 @@
 export const SCREENS = {
   //Auth
-  SplashScreen: 'SplashScreen',
+  SplashScreen: "SplashScreen",
 
   //App
-  DashBoard: 'DashBoard',
-  OldJobPosts: 'OldJobPosts',
-  PostJob: 'PostJob ',
-  MyJobs: 'MyJobs',
-  JobDetailsScreen: 'JobDetailsScreen',
+  DashBoard: "DashBoard",
+  OldJobPosts: "OldJobPosts",
+  PostJob: "PostJob ",
+  MyJobs: "MyJobs",
+  JobDetailsScreen: "JobDetailsScreen",
+  AvailableJob: "AvailableJob",
+  JobDetails: "JobDetails",
 };

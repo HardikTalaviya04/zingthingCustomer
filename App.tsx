@@ -1,14 +1,14 @@
 //import liraries
-import React, {createContext, useState} from 'react';
-import {View, StyleSheet, LogBox, StatusBar} from 'react-native';
-import Router from './src/screens/Router';
-import {COLORS} from './src/common/Utils/Colors';
-import Loader from './src/common/Components/Loader';
-import Network from './src/common/Components/Network';
-import PostJob from './src/screens/AppStack/PostJob';
-import OldJobPosts from './src/screens/AppStack/OldJobPosts';
-import AvailableJob from './src/screens/AppStack/AvailableJobs/AvailableJob';
-import JobDetails from './src/screens/AppStack/AvailableJobs/JobDetails';
+import React, { createContext, useState } from "react";
+import { View, StyleSheet, LogBox, StatusBar } from "react-native";
+import Router from "./src/screens/Router";
+import { COLORS } from "./src/common/Utils/Colors";
+import Loader from "./src/common/Components/Loader";
+import Network from "./src/common/Components/Network";
+import PostJob from "./src/screens/AppStack/PostJob";
+import OldJobPosts from "./src/screens/AppStack/OldJobPosts";
+import AvailableJob from "./src/screens/AppStack/AvailableJobs/AvailableJob";
+import JobDetails from "./src/screens/AppStack/AvailableJobs/JobDetails";
 
 // create a component
 export const LoaderContext = createContext();
@@ -18,13 +18,12 @@ const App = () => {
   LogBox.ignoreAllLogs();
   return (
     <View style={styles.container}>
-      <JobDetails/>
-      {/* <StatusBar backgroundColor={COLORS.White} barStyle={'dark-content'} />
-      <LoaderContext.Provider value={[showLoader, setShowLoader]}>
-        <Network />
-        <Router /> */}
-        {/* <Home /> */}
-        {/* {showLoader && <Loader />}
+      <StatusBar backgroundColor={COLORS.White} barStyle={"dark-content"} />
+      {/* <LoaderContext.Provider value={[showLoader, setShowLoader]}> */}
+      <Network />
+      <Router />
+      {/* <Home /> */}
+      {/* {showLoader && <Loader />}
       </LoaderContext.Provider> */}
     </View>
   );
