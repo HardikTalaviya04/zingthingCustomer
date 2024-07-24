@@ -33,6 +33,7 @@ const AvailableJob = () => {
   const [documentPath, setdocumentPath] = useState("");
   const [CheckIndex, SetCheckIndex] = useState([]);
   const [mainData, setMainData] = useState([]);
+  const [mainFullDetails,SetmainFullDetails]=useState()
   const ScreenHeight = Dimensions.get("screen").height;
   const ScreenWidth = Dimensions.get("screen").width;
   const [SectionSelect, SetSectionSelect] = useState("local");
@@ -170,11 +171,16 @@ const AvailableJob = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://zingthing.ptechwebs.com/api/newsfeeds-list"
+        "https://zingthing.ptechwebs.com/api/jobpost-search-list/3"
       );
       const json = await response.json();
-      console.log("object", json);
+      console.log('--ddddd--',json)
       setMainData(json.data);
+      // json.data.map((ele)=>{
+      //   // SetmainFullDetails(ele)
+      //   console.log("-fetch data-",ele );
+      // })
+
     } catch (error) {
       // setError(error);
     } finally {
@@ -229,14 +235,13 @@ const AvailableJob = () => {
   };
 
   const renderItem = ({ item, index }) => {
-    // const Views = item.user;
-    // const arrayLength = Views.length;
-    // console.log(arrayLength);
-    // console.log(Views);
     return (
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => navigation.navigate(SCREENS.JobDetails)}
+        onPress={() => navigation.navigate(SCREENS.JobDetails,{
+          details:item,
+          fulldetails:mainFullDetails
+        })}
         style={{
           borderRadius: RFValue(2),
           backgroundColor: COLORS.White,
@@ -285,7 +290,7 @@ const AvailableJob = () => {
                 marginLeft: RFValue(10),
               }}
             >
-              #Job1
+              {item.id}
             </Text>
           </View>
           <View
@@ -318,12 +323,14 @@ const AvailableJob = () => {
               Job Title :
             </Text>
             <Text
-              style={{
-                color: COLORS.Black,
-                fontSize: RFValue(9),
-              }}
+            
+            style={{
+              color: COLORS.Black,
+              fontSize: RFValue(9),
+              width: RFValue(170),
+            }}
             >
-              Software Developer
+              {item.job_title}
             </Text>
           </View>
           <View
@@ -340,7 +347,7 @@ const AvailableJob = () => {
                 width: RFValue(100),
               }}
             >
-              Job Description :
+              Job Type :
             </Text>
             <Text
               style={{
@@ -349,8 +356,7 @@ const AvailableJob = () => {
                 width: RFValue(170),
               }}
             >
-              Sumer Complex,Shop No.32 Behind Sigma Schooleshav Chowk
-              Porbandar-360575
+              {item.job_type}
             </Text>
           </View>
           <View
@@ -377,7 +383,7 @@ const AvailableJob = () => {
                 fontWeight: "bold",
               }}
             >
-              10,000 - 20,0000
+              {item.salary_range}
             </Text>
           </View>
           <View
@@ -402,7 +408,7 @@ const AvailableJob = () => {
                 fontSize: RFValue(9),
               }}
             >
-              5th May 2024
+              {item.job_post_date}
             </Text>
           </View>
         </View>

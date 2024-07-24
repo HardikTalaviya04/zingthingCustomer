@@ -169,11 +169,15 @@ export default function OldJobPosts() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://zingthing.ptechwebs.com/api/newsfeeds-list"
+        "https://zingthing.ptechwebs.com/api/job-apply-list"
       );
       const json = await response.json();
-      console.log("object", json);
-      setMainData(json.data);
+      json.data.map((ele)=>{
+        setMainData(ele.job_posts);
+        // SetmainFullDetails(ele)
+        console.log("-fetch data-",ele.job_posts );
+      })
+      
     } catch (error) {
       // setError(error);
     } finally {
@@ -231,73 +235,75 @@ export default function OldJobPosts() {
     // const Views = item.user;
     // const arrayLength = Views.length;
     // console.log(arrayLength);
-    // console.log(Views);
+    console.log('--ii--',item);
     return (
+      // item.map((ele)=>{
+      //   return(
       <View
-        style={{
-          borderRadius: RFValue(2),
-          backgroundColor: COLORS.White,
-          marginTop: RFValue(15),
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 1,
-          },
-          shadowOpacity: 0.2,
-          shadowRadius: 1.41,
+      style={{
+        borderRadius: RFValue(2),
+        backgroundColor: COLORS.White,
+        marginTop: RFValue(15),
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
 
-          elevation: 2,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            paddingHorizontal: RFValue(15),
-            paddingVertical: RFValue(10),
-            alignItems: "center",
-            justifyContent: "space-between",
-            backgroundColor: COLORS.DarkPrimeryColor,
-          }}
-        >
-          <View style={{ flexDirection: "row" }}>
-            <View>
-              <Text style={{ color: COLORS.Orange, fontWeight: "bold" }}>
-                Job Post Id
-              </Text>
-              <Text
-                style={{
-                  color: COLORS.Red,
-                  fontWeight: "500",
-                  fontSize: RFValue(8),
-                  marginTop: RFValue(2),
-                }}
-              >
-                Expires in 3 days
-              </Text>
-            </View>
-            <Text
-              style={{
-                color: COLORS.SkyBlueText,
-                fontWeight: "bold",
-                marginLeft: RFValue(10),
-              }}
-            >
-              #Job1
-            </Text>
-          </View>
-          <View
+        elevation: 2,
+      }}
+    >
+    <View
+      style={{
+        flexDirection: "row",
+        paddingHorizontal: RFValue(15),
+        paddingVertical: RFValue(10),
+        alignItems: "center",
+        justifyContent: "space-between",
+        backgroundColor: COLORS.DarkPrimeryColor,
+      }}
+    >
+      <View style={{ flexDirection: "row" }}>
+        <View>
+          <Text style={{ color: COLORS.Orange, fontWeight: "bold" }}>
+            Job Post Id
+          </Text>
+          <Text
             style={{
-              backgroundColor: COLORS.ButtonPurpal,
-              paddingHorizontal: 8,
-              paddingVertical: RFValue(4),
-              borderRadius: RFValue(4),
+              color: COLORS.Red,
+              fontWeight: "500",
+              fontSize: RFValue(8),
+              marginTop: RFValue(2),
             }}
           >
-            <Text style={{ fontSize: RFValue(10), color: COLORS.White }}>
-              Posted Recently
-            </Text>
-          </View>
+            Expires in 3 days
+          </Text>
         </View>
+        <Text
+          style={{
+            color: COLORS.SkyBlueText,
+            fontWeight: "bold",
+            marginLeft: RFValue(10),
+          }}
+        >
+          {item.id}
+        </Text>
+      </View>
+      <View
+        style={{
+          backgroundColor: COLORS.ButtonPurpal,
+          paddingHorizontal: 8,
+          paddingVertical: RFValue(4),
+          borderRadius: RFValue(4),
+        }}
+      >
+        <Text style={{ fontSize: RFValue(10), color: COLORS.White }}>
+          Posted Recently
+        </Text>
+      </View>
+    </View>
         <View style={{ padding: RFValue(15) }}>
           <View
             style={{
@@ -315,12 +321,14 @@ export default function OldJobPosts() {
               Job Title :
             </Text>
             <Text
-              style={{
-                color: COLORS.Black,
-                fontSize: RFValue(9),
-              }}
+            
+            style={{
+              color: COLORS.Black,
+              fontSize: RFValue(9),
+              width: RFValue(170),
+            }}
             >
-              Software Developer
+              {item.job_title}
             </Text>
           </View>
           <View
@@ -337,7 +345,7 @@ export default function OldJobPosts() {
                 width: RFValue(100),
               }}
             >
-              Job Description :
+              Job Type :
             </Text>
             <Text
               style={{
@@ -346,8 +354,7 @@ export default function OldJobPosts() {
                 width: RFValue(170),
               }}
             >
-              Sumer Complex,Shop No.32 Behind Sigma Schooleshav Chowk
-              Porbandar-360575
+              {item.job_type}
             </Text>
           </View>
           <View
@@ -374,7 +381,7 @@ export default function OldJobPosts() {
                 fontWeight: "bold",
               }}
             >
-              10,000 - 20,0000
+              {item.salary_range}
             </Text>
           </View>
           <View
@@ -399,74 +406,76 @@ export default function OldJobPosts() {
                 fontSize: RFValue(9),
               }}
             >
-              5th May 2024
+              {item.job_post_date}
             </Text>
           </View>
         </View>
-        <View
-          style={{
-            position: "absolute",
-            bottom: 10,
-            right: 10,
-          }}
-        >
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity
-              onPress={() => SetCheckIndex(index)}
-              activeOpacity={0.5}
-              style={{
-                height: RFValue(15),
-                width: RFValue(15),
-                backgroundColor: COLORS.SperatorColor,
-                borderRadius: RFValue(2),
-                marginRight: RFValue(4),
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {index == CheckIndex && (
-                <View
-                  style={{
-                    alignSelf: "center",
-                    height: RFValue(8),
-                    width: RFValue(8),
-                    borderRadius: RFValue(8),
-                    backgroundColor: COLORS.Orange,
-                  }}
-                />
-              )}
-            </TouchableOpacity>
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: COLORS.Black,
-                fontSize: RFValue(10),
-              }}
-            >
-              Notification Enabled
-            </Text>
-          </View>
+      <View
+        style={{
+          position: "absolute",
+          bottom: 10,
+          right: 10,
+        }}
+      >
+        <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(SCREENS.PostJob, {
-                screenstate: "OldJobPost",
-              })
-            }
+            onPress={() => SetCheckIndex(index)}
+            activeOpacity={0.5}
+            style={{
+              height: RFValue(15),
+              width: RFValue(15),
+              backgroundColor: COLORS.SperatorColor,
+              borderRadius: RFValue(2),
+              marginRight: RFValue(4),
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: COLORS.Orange,
-                fontSize: RFValue(10),
-                textAlign: "center",
-                marginTop: RFValue(3),
-              }}
-            >
-              Edit Search
-            </Text>
+            {index == CheckIndex && (
+              <View
+                style={{
+                  alignSelf: "center",
+                  height: RFValue(8),
+                  width: RFValue(8),
+                  borderRadius: RFValue(8),
+                  backgroundColor: COLORS.Orange,
+                }}
+              />
+            )}
           </TouchableOpacity>
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: COLORS.Black,
+              fontSize: RFValue(10),
+            }}
+          >
+            Notification Enabled
+          </Text>
         </View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(SCREENS.PostJob, {
+              screenstate: "OldJobPost",
+            })
+          }
+        >
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: COLORS.Orange,
+              fontSize: RFValue(10),
+              textAlign: "center",
+              marginTop: RFValue(3),
+            }}
+          >
+            Edit Search
+          </Text>
+        </TouchableOpacity>
       </View>
+    </View>
+        // )
+      // })
     );
   };
 

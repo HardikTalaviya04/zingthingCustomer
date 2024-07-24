@@ -366,9 +366,9 @@ const PostJob = () => {
       data.append("job_type_id", value);
       data.append("job_post_subscription_id", "1");
       data.append("job_search_subscription_id", "1");
-
+      console.log('--formdata--',data)
       const response = await fetch(
-        "https://zingthing.ptechwebs.com/api/jobpost-add",
+        "https://zingthing.ptechwebs.com/api/jobpost-search",
         {
           method: "POST",
           headers: {

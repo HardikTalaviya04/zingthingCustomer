@@ -1,4 +1,5 @@
 import {
+  Alert,
   Dimensions,
   StyleSheet,
   Text,
@@ -9,11 +10,58 @@ import React from "react";
 import { COLORS } from "../../../common/Utils/Colors";
 import OnBordingHeader from "../../../common/Components/OnBordingHeader";
 import { RFValue } from "react-native-responsive-fontsize";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { SCREENS } from "../../../common/Utils/screenName";
 const { width, height } = Dimensions.get("window");
 const JobDetails = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { details, fulldetails } = route.params;
+  console.log("-detatatata-", details);
+  // const []
+
+  const onSubmitData = async () => {
+    try {
+      const formdata = new FormData();
+      formdata.append("candidate_id", 3);
+      formdata.append("job_title_id", details.job_title_id);
+      formdata.append("job_type_id", details.job_type_id);
+      formdata.append("business_id", details.business_id);
+      formdata.append("working_time_id", details.working_time_id);
+      formdata.append("gender_id", details.gender_id);
+      formdata.append("line_of_educations_ids", fulldetails.city);
+      formdata.append("qualification_id", details.qualification_id);
+      formdata.append("skill_id", details.skill_id);
+      formdata.append("experience_id", details.experience_id);
+      formdata.append("quantity_id", details.quantity_id);
+      formdata.append("age_group_id", details.age_group_id);
+      formdata.append("localilty_id", details.localilty_id);
+      formdata.append("environment_to_work_id", details.environment_to_work_id);
+      formdata.append("place_of_posting", details.place_of_posting);
+      formdata.append("salary_range_id", details.salary_range_id);
+      formdata.append("facility_ids", details.facilities);
+      formdata.append("message", details.message);
+      formdata.append("resume", details.resume);
+
+      console.log('--deeee--',formdata)
+      await fetch(`https://zingthing.ptechwebs.com/api/jobpost-search-add`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json,*/*",
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.status == 200) {
+            navigation.navigate(SCREENS.DashBoard);
+          } else {
+            Alert.alert("Alert", result.message);
+          }
+        });
+    } catch (Err) {
+      console.log(Err);
+    }
+  };
   return (
     <View
       style={{
@@ -75,7 +123,7 @@ const JobDetails = () => {
                   marginLeft: RFValue(10),
                 }}
               >
-                #Job123
+                {details.id}
               </Text>
             </View>
             <View
@@ -91,7 +139,12 @@ const JobDetails = () => {
               </Text>
             </View>
           </View>
-          <View style={{ padding: RFValue(15), height: "88%" }}>
+          <View
+            style={{
+              padding: RFValue(15),
+              height: "88%",
+            }}
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -112,9 +165,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                sample
+                {details.candidate_name}
               </Text>
             </View>
             <View
@@ -122,6 +177,7 @@ const JobDetails = () => {
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
                 alignItems: "center",
+                // backgroundColor:'red'
               }}
             >
               <Text
@@ -137,9 +193,12 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+
+                  width: RFValue(145),
+                  // backgroundColor:'yellow'
                 }}
               >
-                Software Developer
+                {details.job_type}
               </Text>
             </View>
             <View
@@ -162,9 +221,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                9 - 5
+                {details.working_time}
               </Text>
             </View>
             <View
@@ -187,9 +248,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                any
+                {details.gender}
               </Text>
             </View>
             <View
@@ -208,14 +271,20 @@ const JobDetails = () => {
               >
                 Line of Education Type :
               </Text>
-              <Text
-                style={{
-                  color: COLORS.Black,
-                  fontSize: RFValue(12),
-                }}
-              >
-                CS
-              </Text>
+              {details.line_of_educations.map((ele) => {
+                return (
+                  <Text
+                    style={{
+                      color: COLORS.Black,
+                      fontSize: RFValue(12),
+                  width: RFValue(145),
+
+                    }}
+                  >
+                    {ele.line_of_educations.line_of_education}
+                  </Text>
+                );
+              })}
             </View>
             <View
               style={{
@@ -237,9 +306,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                CS
+                {details.qualification}
               </Text>
             </View>
             <View
@@ -262,9 +333,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                React
+                {details.skill}
               </Text>
             </View>
             <View
@@ -287,9 +360,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                10+ yr
+                {details.experience}
               </Text>
             </View>
             <View
@@ -312,9 +387,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                10
+                {details.quantity}
               </Text>
             </View>
             <View
@@ -337,9 +414,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                20 - 40 yrs
+                {details.age_group}
               </Text>
             </View>
             <View
@@ -362,9 +441,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                Office
+                {details.environment_to_work}
               </Text>
             </View>
             <View
@@ -387,9 +468,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                25,000 +
+                {details.salary_range}
               </Text>
             </View>
             <View
@@ -412,9 +495,11 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                Local
+                {details.localilty}
               </Text>
             </View>
             <View
@@ -433,14 +518,21 @@ const JobDetails = () => {
               >
                 Additional Facility :
               </Text>
-              <Text
-                style={{
-                  color: COLORS.Black,
-                  fontSize: RFValue(12),
-                }}
-              >
-                PF , Bonus
-              </Text>
+              {details.facilities.map((ele) => {
+                return (
+                  // console.log('--facacaca-',ele)
+                  <Text
+                    style={{
+                      color: COLORS.Black,
+                      fontSize: RFValue(12),
+                  width: RFValue(145),
+
+                    }}
+                  >
+                    {ele.facilities.facilities}
+                  </Text>
+                );
+              })}
             </View>
             <View
               style={{
@@ -462,13 +554,15 @@ const JobDetails = () => {
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
+                  width: RFValue(145),
+
                 }}
               >
-                Tech
+                {details.business}
               </Text>
             </View>
             <TouchableOpacity
-              onPress={() => navigation.navigate(SCREENS.DashBoard)}
+              onPress={() => onSubmitData()}
               style={{
                 position: "absolute",
                 bottom: -10,
