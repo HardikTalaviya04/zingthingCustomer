@@ -23,10 +23,10 @@ const JobDetails = () => {
   const onSubmitData = async () => {
     try {
       const formdata = new FormData();
-      formdata.append("candidate_id", 3);
-      formdata.append("job_title_id", details.job_title_id);
-      formdata.append("job_type_id", details.job_type_id);
-      formdata.append("business_id", details.business_id);
+      formdata.append("user_id", 3);
+      formdata.append("job_post_id", details.job_title_id);
+      formdata.append("business_category_id", details.job_type_id);
+      formdata.append("name", details.business_id);
       formdata.append("working_time_id", details.working_time_id);
       formdata.append("gender_id", details.gender_id);
       formdata.append("line_of_educations_ids", fulldetails.city);
@@ -43,8 +43,8 @@ const JobDetails = () => {
       formdata.append("message", details.message);
       formdata.append("resume", details.resume);
 
-      console.log('--deeee--',formdata)
-      await fetch(`https://zingthing.ptechwebs.com/api/jobpost-search-add`, {
+      console.log("--deeee--", formdata);
+      await fetch(`https://zingthing.ptechwebs.com/api/job-apply-add`, {
         method: "POST",
         headers: {
           Accept: "application/json,*/*",
@@ -62,6 +62,7 @@ const JobDetails = () => {
       console.log(Err);
     }
   };
+  
   return (
     <View
       style={{
@@ -70,7 +71,7 @@ const JobDetails = () => {
       }}
     >
       <View>
-        <OnBordingHeader label={"JobID #Job 123"} Back={true} />
+        <OnBordingHeader label={`JobID #${details.id}`} Back={true} />
       </View>
       <View>
         <View
@@ -166,7 +167,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.candidate_name}
@@ -222,7 +222,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.working_time}
@@ -249,7 +248,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.gender}
@@ -271,20 +269,21 @@ const JobDetails = () => {
               >
                 Line of Education Type :
               </Text>
+              <View>
               {details.line_of_educations.map((ele) => {
                 return (
                   <Text
                     style={{
                       color: COLORS.Black,
                       fontSize: RFValue(12),
-                  width: RFValue(145),
-
+                      width: RFValue(145),
                     }}
                   >
                     {ele.line_of_educations.line_of_education}
                   </Text>
                 );
               })}
+              </View>
             </View>
             <View
               style={{
@@ -307,7 +306,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.qualification}
@@ -329,16 +327,15 @@ const JobDetails = () => {
               >
                 Additional Skills :
               </Text>
-              <Text
+              {/* <Text
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.skill}
-              </Text>
+              </Text> */}
             </View>
             <View
               style={{
@@ -361,7 +358,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.experience}
@@ -388,7 +384,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.quantity}
@@ -415,7 +410,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.age_group}
@@ -442,7 +436,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.environment_to_work}
@@ -469,7 +462,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.salary_range}
@@ -496,7 +488,6 @@ const JobDetails = () => {
                   color: COLORS.Black,
                   fontSize: RFValue(12),
                   width: RFValue(145),
-
                 }}
               >
                 {details.localilty}
@@ -518,6 +509,7 @@ const JobDetails = () => {
               >
                 Additional Facility :
               </Text>
+              <View>
               {details.facilities.map((ele) => {
                 return (
                   // console.log('--facacaca-',ele)
@@ -525,14 +517,14 @@ const JobDetails = () => {
                     style={{
                       color: COLORS.Black,
                       fontSize: RFValue(12),
-                  width: RFValue(145),
-
+                      width: RFValue(145),
                     }}
                   >
                     {ele.facilities.facilities}
                   </Text>
                 );
               })}
+              </View>
             </View>
             <View
               style={{
@@ -550,7 +542,23 @@ const JobDetails = () => {
               >
                 Business Type :
               </Text>
-              <Text
+              <View>
+              {details.business.map((ele) => {
+                return (
+                  <Text
+                    style={{
+                      color: COLORS.Black,
+                      fontSize: RFValue(12),
+                      width: RFValue(145),
+                      // backgroundColor:'red'
+                    }}
+                  >
+                    {ele.business.business}
+                  </Text>
+                );
+              })}
+              </View>
+              {/* <Text
                 style={{
                   color: COLORS.Black,
                   fontSize: RFValue(12),
@@ -559,7 +567,7 @@ const JobDetails = () => {
                 }}
               >
                 {details.business}
-              </Text>
+              </Text> */}
             </View>
             <TouchableOpacity
               onPress={() => onSubmitData()}

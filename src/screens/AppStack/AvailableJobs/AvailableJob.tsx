@@ -170,6 +170,7 @@ const AvailableJob = () => {
 
   const fetchData = async () => {
     try {
+      console.log('--inside fetch data fun--')
       const response = await fetch(
         "https://zingthing.ptechwebs.com/api/jobpost-search-list/3"
       );
@@ -181,7 +182,9 @@ const AvailableJob = () => {
       //   console.log("-fetch data-",ele );
       // })
 
-    } catch (error) {
+    } catch (err) {
+      console.log('--Catch-Err--',err)
+      // Alert.alert("Alert",error)
       // setError(error);
     } finally {
       // setLoading(false);
@@ -442,7 +445,7 @@ const AvailableJob = () => {
 
   return (
     <View style={styles.mainBody}>
-      <OnBordingHeader label={"Avilable Jobs"} Back={true} />
+      <OnBordingHeader label={"Available Jobs Matching Active Jobs Post"} Back={true} />
       <View
         style={{
           flexDirection: "row",

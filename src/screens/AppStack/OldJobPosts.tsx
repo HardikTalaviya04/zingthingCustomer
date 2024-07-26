@@ -481,7 +481,7 @@ export default function OldJobPosts() {
 
   return (
     <View style={styles.mainBody}>
-      <OnBordingHeader label={"Job : #Job1 Edit "} Back={true} />
+      <OnBordingHeader label={"Old Job searches"} Back={true} />
       <View
         style={{
           flex: 1,

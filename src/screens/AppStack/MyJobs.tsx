@@ -36,7 +36,7 @@ export default function MyJobs() {
     try {
       const response = await fetch(
         // "https://zingthing.ptechwebs.com/api/jobpost/1"
-        "https://zingthing.ptechwebs.com/api/jobpost-list/1"
+        "https://zingthing.ptechwebs.com/api/jobpost-search-list/3"
       );
       const json = await response.json();
       const reversedData = [...json.data].reverse();

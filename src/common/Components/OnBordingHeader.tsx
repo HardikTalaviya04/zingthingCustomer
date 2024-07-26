@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: RFValue(20),
     borderBottomRightRadius: RFValue(20),
     borderBottomLeftRadius: RFValue(20),
-    marginTop: RFValue(12),
+    marginTop: RFValue(26),
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -67,16 +67,17 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   headerText: {
-    textAlign: "center",
+    textAlign: "left",
     color: COLORS.Orange,
     fontSize: RFValue(16),
     fontFamily: FONTS.ExtraBold,
     fontWeight: "bold",
+    paddingLeft:10
   },
   backImge: {
     resizeMode: "contain",
-    height: RFValue(24),
-    width: RFValue(24),
+    height: RFValue(18),
+    width: RFValue(18),
   },
 });
 
