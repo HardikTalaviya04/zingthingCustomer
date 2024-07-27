@@ -41,7 +41,9 @@ export default function DashBoard() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonView}
-          onPress={() => navigation.navigate(SCREENS.PostJob)}
+          onPress={() => navigation.navigate(SCREENS.PostJob,{
+            NavData:null
+          })}
         >
           <Text style={styles.buttonText}>{"FIND A JOB WITH NEW SEARCH"}</Text>
         </TouchableOpacity>

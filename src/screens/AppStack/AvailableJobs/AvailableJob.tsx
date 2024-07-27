@@ -172,7 +172,7 @@ const AvailableJob = () => {
     try {
       console.log('--inside fetch data fun--')
       const response = await fetch(
-        "https://zingthing.ptechwebs.com/api/jobpost-search-list/3"
+        "https://zingthing.ptechwebs.com/api/jobpost-list"
       );
       const json = await response.json();
       console.log('--ddddd--',json)
@@ -378,6 +378,7 @@ const AvailableJob = () => {
             >
               Salary :
             </Text>
+            {/* {item.salary_range_id} */}
             <Text
               style={{
                 color: COLORS.Black,
@@ -445,7 +446,9 @@ const AvailableJob = () => {
 
   return (
     <View style={styles.mainBody}>
+      <View>
       <OnBordingHeader label={"Available Jobs Matching Active Jobs Post"} Back={true} />
+      </View>
       <View
         style={{
           flexDirection: "row",
@@ -486,7 +489,7 @@ const AvailableJob = () => {
         }}
       >
         <FlatList
-          contentContainerStyle={{ marginTop: RFValue(15) }}
+          contentContainerStyle={{ paddingVertical: RFValue(15) }}
           showsVerticalScrollIndicator={false}
           data={mainData}
           renderItem={renderItem}

@@ -169,14 +169,16 @@ export default function OldJobPosts() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://zingthing.ptechwebs.com/api/job-apply-list"
+        "https://zingthing.ptechwebs.com/api/jobpost-search-list/3"
       );
       const json = await response.json();
-      json.data.map((ele)=>{
-        setMainData(ele.job_posts);
-        // SetmainFullDetails(ele)
-        console.log("-fetch data-",ele.job_posts );
-      })
+      const reversedData = [...json.data].reverse();
+      setMainData(reversedData);
+      // json.data.map((ele)=>{
+      //   setMainData(ele);
+      //   // SetmainFullDetails(ele)
+      //   console.log("-fetch data-",ele );
+      // })
       
     } catch (error) {
       // setError(error);
@@ -406,7 +408,7 @@ export default function OldJobPosts() {
                 fontSize: RFValue(9),
               }}
             >
-              {item.job_post_date}
+              {item.job_search_date}
             </Text>
           </View>
         </View>
@@ -456,7 +458,7 @@ export default function OldJobPosts() {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate(SCREENS.PostJob, {
-              screenstate: "OldJobPost",
+              NavData: item,
             })
           }
         >
@@ -481,7 +483,9 @@ export default function OldJobPosts() {
 
   return (
     <View style={styles.mainBody}>
+      <View>
       <OnBordingHeader label={"Old Job searches"} Back={true} />
+      </View>
       <View
         style={{
           flex: 1,
@@ -489,11 +493,11 @@ export default function OldJobPosts() {
         }}
       >
         <FlatList
-          contentContainerStyle={{ marginTop: RFValue(15) }}
+          contentContainerStyle={{ paddingVertical:10 }}
           showsVerticalScrollIndicator={false}
           data={mainData}
           renderItem={renderItem}
-        />
+        /> 
       </View>
     </View>
   );

@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Alert,
   Dimensions,
   StyleSheet,
@@ -11,7 +12,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { COLORS } from "../../common/Utils/Colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { FONTS } from "../../common/Utils/fonts";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 import { Picker } from "@react-native-picker/picker";
 import { ScrollView } from "react-native";
@@ -25,30 +26,54 @@ import moment from "moment";
 import DocumentPicker from "react-native-document-picker";
 import RNFS from "react-native-fs";
 
-const PostJob = () => {
+const PostJob = ({ route }) => {
   const navigation = useNavigation();
   const pickerRef = useRef();
+  const { NavData } = route.params;
+  console.log("---nnaaannaannaa--", NavData ? "HIII" : "BYYEEE");
   const [FinalSubmissionPage, setFinalSubmissionPage] = useState(false);
   const [documentPath, setdocumentPath] = useState("");
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(NavData ? NavData.job_type_id : null);
   const [items, setItems] = useState([]);
 
   const [JobTitleopen, setJobTitleOpen] = useState(false);
-  const [JobTitlevalue, setJobTitleValue] = useState(null);
+  const [JobTitlevalue, setJobTitleValue] = useState(
+    NavData ? NavData.job_title_id : null
+  );
   const [JobTitleitems, setJobTitleItems] = useState([]);
+
+  const [Stateopen, setStateOpen] = useState(false);
+  const [Statevalue, setStateValue] = useState(
+    NavData ? NavData.state_id : null
+  );
+  const [Stateitems, setStateItems] = useState([]);
+
+  const [Cityopen, setCityOpen] = useState(false);
+  const [Cityvalue, setCityValue] = useState(null);
+  const [Cityitems, setCityItems] = useState([]);
+
+  // const [JobTitleopen, setJobTitleOpen] = useState(false);
+  // const [JobTitlevalue, setJobTitleValue] = useState(
+  //   NavData ? NavData.job_title_id : null
+  // );
+  // const [JobTitleitems, setJobTitleItems] = useState([]);
 
   const [BusinnesTypeopen, setBusinnesTypeOpen] = useState(false);
   const [BusinnesTypevalue, setBusinnesTypeValue] = useState(null);
   const [BusinnesTypeitems, setBusinnesTypeItems] = useState([]);
 
   const [WorkingTimeopen, setWorkingTimeOpen] = useState(false);
-  const [WorkingTimevalue, setWorkingTimeValue] = useState(null);
+  const [WorkingTimevalue, setWorkingTimeValue] = useState(
+    NavData ? NavData.working_time_id : null
+  );
   const [WorkingTimeitems, setWorkingTimeItems] = useState([]);
 
   const [GenderListopen, setGenderListOpen] = useState(false);
-  const [GenderListvalue, setGenderListValue] = useState(null);
+  const [GenderListvalue, setGenderListValue] = useState(
+    NavData ? NavData.gender_id : null
+  );
   const [GenderListitems, setGenderListItems] = useState([]);
 
   const [EducationLineopen, setEducationLineOpen] = useState(false);
@@ -56,7 +81,9 @@ const PostJob = () => {
   const [EducationLineitems, setEducationLineItems] = useState([]);
 
   const [Qualificationopen, setQualificationOpen] = useState(false);
-  const [Qualificationvalue, setQualificationValue] = useState(null);
+  const [Qualificationvalue, setQualificationValue] = useState(
+    NavData ? NavData.qualification_id : null
+  );
   const [Qualificationitems, setQualificationItems] = useState([]);
 
   const [AddSkillsopen, setAddSkillsOpen] = useState(false);
@@ -64,38 +91,55 @@ const PostJob = () => {
   const [AddSkillsitems, setAddSkillsItems] = useState([]);
 
   const [WorkExperienceopen, setWorkExperienceOpen] = useState(false);
-  const [WorkExperiencevalue, setWorkExperienceValue] = useState(null);
+  const [WorkExperiencevalue, setWorkExperienceValue] = useState(
+    NavData ? NavData.experience_id : null
+  );
   const [WorkExperienceitems, setWorkExperienceItems] = useState([]);
 
   const [Vaccanciesopen, setVaccanciesOpen] = useState(false);
-  const [Vaccanciesvalue, setVaccanciesValue] = useState(null);
+  const [Vaccanciesvalue, setVaccanciesValue] = useState(
+    NavData ? NavData.quantity_id : null
+  );
   const [Vaccanciesitems, setVaccanciesItems] = useState([]);
 
   const [AgeListopen, setAgeListOpen] = useState(false);
-  const [AgeListvalue, setAgeListValue] = useState(null);
+  const [AgeListvalue, setAgeListValue] = useState(
+    NavData ? NavData.age_group_id : null
+  );
   const [AgeListitems, setAgeListItems] = useState([]);
 
   const [WorkPlaceopen, setWorkPlaceOpen] = useState(false);
-  const [WorkPlacevalue, setWorkPlaceValue] = useState(null);
+  const [WorkPlacevalue, setWorkPlaceValue] = useState(
+    NavData ? NavData.environment_to_work_id : null
+  );
   const [WorkPlaceitems, setWorkPlaceItems] = useState([]);
 
   const [SalaryRangeopen, setSalaryRangeOpen] = useState(false);
-  const [SalaryRangevalue, setSalaryRangeValue] = useState(null);
+  const [SalaryRangevalue, setSalaryRangeValue] = useState(
+    NavData ? NavData.salary_range_id : null
+  );
   const [SalaryRangeitems, setSalaryRangeItems] = useState([]);
 
   const [Localityopen, setLocalityOpen] = useState(false);
-  const [Localityvalue, setLocalityValue] = useState(null);
+  const [Localityvalue, setLocalityValue] = useState(
+    NavData ? NavData.localilty_id : null
+  );
   const [Localityitems, setLocalityItems] = useState([]);
 
   const [AdditionalFacilityopen, setAdditionalFacilityOpen] = useState(false);
   const [AdditionalFacilityvalue, setAdditionalFacilityValue] = useState(null);
   const [AdditionalFacilityitems, setAdditionalFacilityItems] = useState([]);
 
-  const [CandidateMessagevalue, setCandidateMessagevalue] = useState("");
+  const [CandidateMessagevalue, setCandidateMessagevalue] = useState(
+    NavData ? NavData?.message : ""
+  );
 
   const [sbscriptionAmount, setSbscriptionAmount] = useState(50);
   const [sbscriptionDayes, setSbscriptionDayes] = useState(10);
   const [sbscriptionInDayes, setSbscriptionInDayes] = useState(10);
+
+  const [isLoading, setisLoading] = useState(false);
+
   const CheckValidation = () => {
     console.log("AdditionalFacilityvalue", AdditionalFacilityvalue);
     if (value == null) {
@@ -160,6 +204,14 @@ const PostJob = () => {
         Alert.alert("Please Select Additional Facility");
         return;
       }
+      if (Statevalue == null) {
+        Alert.alert("Please Select State");
+        return;
+      }
+      if (Cityvalue == null) {
+        Alert.alert("Please Select City");
+        return;
+      }
     }
 
     handlePayment();
@@ -191,6 +243,7 @@ const PostJob = () => {
 
   const fetchData = async () => {
     try {
+      setisLoading(true);
       const response = await fetch(
         "https://zingthing.ptechwebs.com/api/job-type-list"
       );
@@ -303,12 +356,70 @@ const PostJob = () => {
       console.log("object", moment(expirationDate).format("DD-MM-YYYY"));
       setSbscriptionDayes(moment(expirationDate).format("DD-MM-YYYY"));
       setSbscriptionInDayes(json.data[0].job_post_days);
+      // setisLoading(false);
+    } catch (error) {
+      // setError(error);
+    } finally {
+      // setLoading(false);
+    }
+
+    try {
+      const response = await fetch(
+        "https://zingthing.ptechwebs.com/api/state-list"
+      );
+      const json = await response.json();
+      const JobTitle = json.data.map((item: any) => {
+        return { label: item?.state_name, value: item?.id };
+      });
+      setStateItems(JobTitle);
+      setisLoading(false);
+
+      // console.log("HARDIK HARDIK", json.data);
+      // setSbscriptionAmount(json.data[0].job_post_rupees);
+      // const expirationDate = moment(moment().format("YYYY-MM-DD")).add(
+      //   Number(json.data[0].job_post_days),
+      //   "days"
+      // );
+      // console.log("object", moment(expirationDate).format("DD-MM-YYYY"));
+      // setSbscriptionDayes(moment(expirationDate).format("DD-MM-YYYY"));
+      // setSbscriptionInDayes(json.data[0].job_post_days);
+      // setisLoading(false);
     } catch (error) {
       // setError(error);
     } finally {
       // setLoading(false);
     }
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const LineOfEd = NavData?.line_of_educations.map((ele) => {
+        return ele.line_of_educations_id;
+      });
+      setEducationLineValue(LineOfEd);
+
+      const AddSkills = NavData?.skills?.map((ele) => {
+        return ele.skill_id;
+      });
+      setAddSkillsValue(AddSkills);
+
+      const Faclities = NavData?.facilities?.map((ele) => {
+        return ele.facilities_id;
+      });
+      setAdditionalFacilityValue(Faclities);
+
+      const CityName = NavData?.city?.map((ele) => {
+        return ele.city_id;
+      });
+      setCityValue(CityName);
+
+      const Businessid = NavData?.business?.map((ele) => {
+        return ele.business_id;
+      });
+      // console.log("--id-navdata--", AddSkills, Businessid, Faclities);
+      setBusinnesTypeValue(Businessid);
+    }, [NavData])
+  );
 
   useEffect(() => {
     fetchData();
@@ -358,7 +469,8 @@ const PostJob = () => {
 
   const onSubmit = async (FileData) => {
     try {
-      console.log('--FILE_DATA--',FileData)
+      setisLoading(true);
+      console.log("--FILE_DATA--", FileData);
       const data = new FormData();
       data.append("job_post_date", moment().format("YYYY-MM-DD"));
       data.append("candidate_id", "3");
@@ -386,7 +498,7 @@ const PostJob = () => {
         Qualificationvalue ? Qualificationvalue : ""
       );
       data.append(
-        "skill_ids",
+        "skills_ids",
         AddSkillsvalue
           ? Array.isArray(AddSkillsvalue)
             ? AddSkillsvalue.join(",")
@@ -418,21 +530,32 @@ const PostJob = () => {
       data.append("job_post_subscription_id", "1");
       data.append("message", CandidateMessagevalue);
       data.append("job_search_subscription_id", "1");
-      data.append('resume',{
+      data.append("state_id", Statevalue);
+      data.append(
+        "city_ids",
+        Cityvalue
+          ? Array.isArray(Cityvalue)
+            ? Cityvalue.join(",")
+            : Cityvalue
+          : ""
+      );
+      data.append("resume", {
         uri: FileData.uri,
         type: FileData.type,
         name: FileData.name,
         // fileName: Image1.type == "application/pdf" ? 'application/pdf' : 'image'
-    })
+      });
 
-      console.log('--formdata--',data)
+      console.log("--formdata--", data);
       const response = await fetch(
-        "https://zingthing.ptechwebs.com/api/jobpost-search-add",
+        NavData
+          ? `https://zingthing.ptechwebs.com/api/jobpost-search-update/${NavData.id}?_method=PUT`
+          : "https://zingthing.ptechwebs.com/api/jobpost-search-add",
         {
           method: "POST",
           headers: {
-            'Accept': "application/json,*/*",
-            'Content-Type':'multipart/form-data'
+            Accept: "application/json,*/*",
+            "Content-Type": "multipart/form-data",
           },
           body: data,
         }
@@ -443,10 +566,11 @@ const PostJob = () => {
       }
 
       const json = await response.json();
+      setisLoading(false);
       console.log(json);
       Alert.alert(
         "CONGRATULATIONS",
-        `YOUR REQUEST FOR JOB POST WITH NUMBER ${json.job_post_search_id} IS POSTED SUCCESSFULLY AND YOU WILL RECEIVE THE UPDATE NOTIFICATION IN CASE ANY CANDIDATE FITS YOUR JOB POST. YOUR JOB POST WILL REMAIN LIVE TILL ${sbscriptionDayes}. FOR ANY FURTHER ASSISTANCE, PLEASE CONTACT US ON 9723233194 / 9737333194 / 9824333194 / 9979333194 WITH YOUR JOB POST NUMBER.`,
+        `YOUR REQUEST FOR JOB POST WITH NUMBER ${json.data.job_post_search_id} IS POSTED SUCCESSFULLY AND YOU WILL RECEIVE THE UPDATE NOTIFICATION IN CASE ANY CANDIDATE FITS YOUR JOB POST. YOUR JOB POST WILL REMAIN LIVE TILL ${sbscriptionDayes}. FOR ANY FURTHER ASSISTANCE, PLEASE CONTACT US ON 9723233194 / 9737333194 / 9824333194 / 9979333194 WITH YOUR JOB POST NUMBER.`,
         [
           {
             text: "OK",
@@ -455,7 +579,8 @@ const PostJob = () => {
         ]
       );
     } catch (err: any) {
-      console.log('--Errorrorr--',err)
+      setisLoading(false);
+      console.log("--Errorrorr--", err);
       // Alert.alert(err);
     }
   };
@@ -475,6 +600,28 @@ const PostJob = () => {
     setSalaryRangeOpen(index == 12 ? !SalaryRangeopen : false);
     setLocalityOpen(index == 13 ? !Localityopen : false);
     setAdditionalFacilityOpen(index == 14 ? !AdditionalFacilityopen : false);
+    setStateOpen(index == 15 ? !Stateopen : false);
+    setCityOpen(index == 16 ? !Cityopen : false);
+  };
+
+  const GetCityValue = async ({ id }) => {
+    try {
+      console.log("--cccc--city---,", id);
+      setisLoading(true);
+      const response = await fetch(
+        `https://zingthing.ptechwebs.com/api/city/${id}`
+      );
+      const json = await response.json();
+      const JobTitle = json.data.map((item: any) => {
+        return { label: item?.city_name, value: item?.id };
+      });
+      setisLoading(false);
+      setCityItems(JobTitle);
+    } catch (Err) {
+      setisLoading(false);
+
+      console.log("--Error-City-List--", Err);
+    }
   };
 
   return (
@@ -485,7 +632,10 @@ const PostJob = () => {
         justifyContent: "center",
       }}
     >
-      <OnBordingHeader label={"Find a Job"} Back={true} />
+      <OnBordingHeader
+        label={NavData ? `Update Job Search #${NavData.id}` : "Find a Job"}
+        Back={true}
+      />
       {!FinalSubmissionPage ? (
         <ScrollView
           nestedScrollEnabled={true}
@@ -572,6 +722,107 @@ const PostJob = () => {
             dropDownContainerStyle={styles.dropDownContainerStyle}
             setItems={setItems}
           />
+
+          <Text
+            style={{
+              color: COLORS.TextBlack,
+              marginTop: RFValue(10),
+              fontWeight: "600",
+            }}
+          >
+            State :
+          </Text>
+          <DropDownPicker
+            open={Stateopen}
+            listMode="SCROLLVIEW"
+            searchable
+            scrollViewProps={{ nestedScrollEnabled: true }}
+            placeholder="Select State (Select Only One)"
+            placeholderStyle={{
+              color: COLORS.SperatorColor,
+              fontWeight: "500",
+            }}
+            value={Statevalue}
+            onPress={() => {
+              setCityValue(null);
+            }}
+            onChangeValue={(val) => {
+              console.log("----", val);
+              GetCityValue({ id: val });
+            }}
+            items={Stateitems}
+            setOpen={() => setDropdownOpenFunction(15)}
+            setValue={setStateValue}
+            listItemLabelStyle={{
+              color: COLORS.Black,
+              backgroundColor: COLORS.White,
+            }}
+            style={{
+              marginVertical: width * 0.02,
+              borderWidth: 0,
+              elevation: 4,
+              zIndex: 999,
+            }}
+            dropDownContainerStyle={styles.dropDownContainerStyle}
+            setItems={setStateItems}
+          />
+
+          <Text
+            style={{
+              color: COLORS.TextBlack,
+              marginTop: RFValue(10),
+              fontWeight: "600",
+            }}
+          >
+            City :
+          </Text>
+          <DropDownPicker
+            open={Cityopen}
+            multiple
+            listMode="SCROLLVIEW"
+            scrollViewProps={{ nestedScrollEnabled: true }}
+            placeholder="Select City (Multiple)"
+            placeholderStyle={{
+              color: COLORS.SperatorColor,
+              fontWeight: "500",
+            }}
+            value={Cityvalue}
+            items={Cityitems}
+            setOpen={() => setDropdownOpenFunction(16)}
+            setValue={setCityValue}
+            listItemLabelStyle={{
+              color: COLORS.Black,
+              backgroundColor: COLORS.White,
+            }}
+            style={{
+              marginVertical: width * 0.02,
+              borderWidth: 0,
+              elevation: 4,
+              zIndex: 999,
+            }}
+            dropDownContainerStyle={styles.dropDownContainerStyle}
+            setItems={setCityItems}
+          />
+
+          <FlatList
+            data={[1]}
+            keyExtractor={(item) => item}
+            renderItem={({ item, index }) =>
+              Cityvalue != null ? (
+                typeof Cityvalue == "number" ? (
+                  <Text style={styles.itemText}>
+                    {Cityitems[Cityvalue - 1].label},{" "}
+                  </Text>
+                ) : (
+                  Cityvalue.map((items, indexx) => (
+                    <Text style={styles.itemText}>
+                      {Cityitems?.[items - 1]?.label},{" "}
+                    </Text>
+                  ))
+                )
+              ) : null
+            }
+          />
           {value == 2 && (
             <>
               <Text
@@ -614,25 +865,25 @@ const PostJob = () => {
                 setItems={setItems}
               />
 
-<FlatList
-              data={[1]}
-              keyExtractor={(item) => item}
-              renderItem={({ item, index }) =>
-                BusinnesTypevalue != null ? (
-                  typeof BusinnesTypevalue == "number" ? (
-                    <Text style={styles.itemText}>
-                      {BusinnesTypeitems[BusinnesTypevalue - 1].label},{" "}
-                    </Text>
-                  ) : (
-                    BusinnesTypevalue.map((items, indexx) => (
+              <FlatList
+                data={[1]}
+                keyExtractor={(item) => item}
+                renderItem={({ item, index }) =>
+                  BusinnesTypevalue != null ? (
+                    typeof BusinnesTypevalue == "number" ? (
                       <Text style={styles.itemText}>
-                        {BusinnesTypeitems?.[items - 1]?.label},{" "}
+                        {BusinnesTypeitems[BusinnesTypevalue - 1].label},{" "}
                       </Text>
-                    ))
-                  )
-                ) : null
-              }
-            />
+                    ) : (
+                      BusinnesTypevalue.map((items, indexx) => (
+                        <Text style={styles.itemText}>
+                          {BusinnesTypeitems?.[items - 1]?.label},{" "}
+                        </Text>
+                      ))
+                    )
+                  ) : null
+                }
+              />
               {/* <FlatList
                 data={[1]}
                 scrollEnabled={false}
@@ -669,7 +920,7 @@ const PostJob = () => {
                 scrollViewProps={{ nestedScrollEnabled: true }}
                 open={WorkingTimeopen}
                 value={WorkingTimevalue}
-              placeholder="Select Time (Select Only One)"
+                placeholder="Select Time (Select Only One)"
                 placeholderStyle={{
                   color: COLORS.SperatorColor,
                   fontWeight: "500",
@@ -1112,25 +1363,29 @@ const PostJob = () => {
                 setItems={setItems}
               />
 
-<FlatList
-              data={[1]}
-              keyExtractor={(item) => item}
-              renderItem={({ item, index }) =>
-                AdditionalFacilityvalue != null ? (
-                  typeof AdditionalFacilityvalue == "number" ? (
-                    <Text style={styles.itemText}>
-                      {AdditionalFacilityitems[AdditionalFacilityvalue - 1].label},{" "}
-                    </Text>
-                  ) : (
-                    AdditionalFacilityvalue.map((items, indexx) => (
+              <FlatList
+                data={[1]}
+                keyExtractor={(item) => item}
+                renderItem={({ item, index }) =>
+                  AdditionalFacilityvalue != null ? (
+                    typeof AdditionalFacilityvalue == "number" ? (
                       <Text style={styles.itemText}>
-                        {AdditionalFacilityitems?.[items - 1]?.label},{" "}
+                        {
+                          AdditionalFacilityitems[AdditionalFacilityvalue - 1]
+                            .label
+                        }
+                        ,{" "}
                       </Text>
-                    ))
-                  )
-                ) : null
-              }
-            />
+                    ) : (
+                      AdditionalFacilityvalue.map((items, indexx) => (
+                        <Text style={styles.itemText}>
+                          {AdditionalFacilityitems?.[items - 1]?.label},{" "}
+                        </Text>
+                      ))
+                    )
+                  ) : null
+                }
+              />
               {/* <FlatList
                 data={[1]}
                 keyExtractor={(item) => item}
@@ -1210,7 +1465,9 @@ const PostJob = () => {
                 fontWeight: "600",
               }}
             >
-              Pay and proceed to job search
+              {NavData
+                ? "Pay & update job search"
+                : "Pay and proceed to job search"}
             </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -1244,6 +1501,26 @@ const PostJob = () => {
               Upload Resume
             </Text>
           </TouchableOpacity>
+        </View>
+      )}
+
+      {isLoading && (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "rgba(0,0,0,0.5)",
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 10,
+          }}
+        >
+          <ActivityIndicator
+            color={COLORS.White}
+            size={Dimensions.get("window").width * 0.2}
+          />
         </View>
       )}
     </View>
