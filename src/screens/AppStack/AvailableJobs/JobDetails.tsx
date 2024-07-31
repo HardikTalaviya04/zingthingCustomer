@@ -265,7 +265,7 @@ const JobDetails = () => {
                 {details.job_type}
               </Text>
             </View>
-            <View
+            {details?.working_time&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -290,8 +290,8 @@ const JobDetails = () => {
               >
                 {details.working_time}
               </Text>
-            </View>
-            <View
+            </View>}
+            {details?.gender&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -316,8 +316,8 @@ const JobDetails = () => {
               >
                 {details.gender}
               </Text>
-            </View>
-            <View
+            </View>}
+            {details?.line_of_educations.length!=0&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -348,8 +348,8 @@ const JobDetails = () => {
                   );
                 })}
               </View>
-            </View>
-            <View
+            </View>}
+            {details?.qualification&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -374,8 +374,8 @@ const JobDetails = () => {
               >
                 {details.qualification}
               </Text>
-            </View>
-            <View
+            </View>}
+            {details?.skills.length!=0&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -415,8 +415,8 @@ const JobDetails = () => {
               >
                 {details.skill}
               </Text> */}
-            </View>
-            <View
+            </View>}
+            {details?.experience&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -441,8 +441,8 @@ const JobDetails = () => {
               >
                 {details.experience}
               </Text>
-            </View>
-            <View
+            </View>}
+           {details?.quantity&& <View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -467,8 +467,8 @@ const JobDetails = () => {
               >
                 {details.quantity}
               </Text>
-            </View>
-            <View
+            </View>}
+            {details?.age_group&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -493,8 +493,8 @@ const JobDetails = () => {
               >
                 {details.age_group}
               </Text>
-            </View>
-            <View
+            </View>}
+            {details?.environment_to_work&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -519,8 +519,8 @@ const JobDetails = () => {
               >
                 {details.environment_to_work}
               </Text>
-            </View>
-            <View
+            </View>}
+            {details?.salary_range&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -545,8 +545,8 @@ const JobDetails = () => {
               >
                 {details.salary_range}
               </Text>
-            </View>
-            <View
+            </View>}
+            {details?.localilty&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -571,8 +571,8 @@ const JobDetails = () => {
               >
                 {details.localilty}
               </Text>
-            </View>
-            <View
+            </View>}
+            {details.facilities.length!=0&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -604,8 +604,8 @@ const JobDetails = () => {
                   );
                 })}
               </View>
-            </View>
-            <View
+            </View>}
+            {details.business.length!=0&&<View
               style={{
                 flexDirection: "row",
                 paddingVertical: RFValue(4),
@@ -647,7 +647,7 @@ const JobDetails = () => {
               >
                 {details.business}
               </Text> */}
-            </View>
+            </View>}
             <TouchableOpacity
               onPress={() =>setFinalSubmissionPage(true)}
               style={{

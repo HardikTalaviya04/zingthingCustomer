@@ -12,6 +12,8 @@ import JobDetailsScreen from "./AppStack/JobDetailsScreen";
 import PostJob from "./AppStack/PostJob";
 import AvailableJob from "./AppStack/AvailableJobs/AvailableJob";
 import JobDetails from "./AppStack/AvailableJobs/JobDetails";
+import NewsList from "./AppStack/NewsFeed/NewsList";
+import ViewPDF from "./AppStack/NewsFeed/ViewPDF";
 
 LogBox.ignoreAllLogs();
 
@@ -65,6 +67,16 @@ const Router = () => {
         <Stack.Screen
           name={SCREENS.JobDetails}
           component={JobDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={SCREENS.NewsFeed}
+          component={NewsList}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={SCREENS.NewsFeedData}
+          component={ViewPDF}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

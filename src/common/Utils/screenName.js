@@ -10,4 +10,6 @@ export const SCREENS = {
   JobDetailsScreen: "JobDetailsScreen",
   AvailableJob: "AvailableJob",
   JobDetails: "JobDetails",
+  NewsFeed:"NewsFeed",
+  NewsFeedData:"NewsFeedData",
 };

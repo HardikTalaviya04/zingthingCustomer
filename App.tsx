@@ -9,7 +9,7 @@ import PostJob from "./src/screens/AppStack/PostJob";
 import OldJobPosts from "./src/screens/AppStack/OldJobPosts";
 import AvailableJob from "./src/screens/AppStack/AvailableJobs/AvailableJob";
 import JobDetails from "./src/screens/AppStack/AvailableJobs/JobDetails";
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 // create a component
 export const LoaderContext = createContext();
 
@@ -17,6 +17,9 @@ const App = () => {
   const [showLoader, setShowLoader] = useState(false);
   LogBox.ignoreAllLogs();
   return (
+
+      
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <View style={styles.container}>
       <StatusBar backgroundColor={COLORS.White} barStyle={"dark-content"} />
       {/* <LoaderContext.Provider value={[showLoader, setShowLoader]}> */}
@@ -26,6 +29,7 @@ const App = () => {
       {/* {showLoader && <Loader />}
       </LoaderContext.Provider> */}
     </View>
+      </GestureHandlerRootView>
   );
 };
 

@@ -362,7 +362,7 @@ const AvailableJob = () => {
               {item.job_type}
             </Text>
           </View>
-          <View
+          {item.salary_range&&<View
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -389,8 +389,8 @@ const AvailableJob = () => {
             >
               {item.salary_range}
             </Text>
-          </View>
-          <View
+          </View>}
+          {item.job_post_date&&<View
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -414,7 +414,7 @@ const AvailableJob = () => {
             >
               {item.job_post_date}
             </Text>
-          </View>
+          </View>}
         </View>
         <View
           style={{

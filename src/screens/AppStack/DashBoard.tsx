@@ -53,6 +53,12 @@ export default function DashBoard() {
         >
           <Text style={styles.buttonText}>{"AVAILABLE JOBS"}</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonView}
+          onPress={() => navigation.navigate(SCREENS.NewsFeed)}
+        >
+          <Text style={styles.buttonText}>{"NEWS FEED"}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
